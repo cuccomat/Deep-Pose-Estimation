@@ -17,3 +17,8 @@ AnyConv.com__LDA.stl
 .tmp*
 wandb
 __pycache__
+*.png
+*.txt
+*.csv
+*.npy
+.ipynb_checkpoints

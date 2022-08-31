@@ -11,7 +11,7 @@ import numpy as np
 tm = trimesh.load('CAD_model/small sat.STL')
 mesh = pyrender.Mesh.from_trimesh(tm)
 
-tx, ty, tz, rx, ry, rz = (49.0, -21.0, -295.0, -180.0, 6.20606, 100.512138)
+tx, ty, tz, rx, ry, rz = (-53.0, 35.0, -280.0, 180.0, 19.995985, 176.320374)
 
 ty = -ty
 ry = -ry 
@@ -29,7 +29,7 @@ im_width, im_height = (1024,1024)
 camK = np.array([[886.81,0.0,512.0],[0.0,886.81,512.0],[0.0,0.0,1.0]])
 
 camera = pyrender.IntrinsicsCamera(camK[0,0],camK[1,1],
-                                    camK[0,2],camK[1,2], zfar = 300.0)
+                                    camK[0,2],camK[1,2], zfar = 400.0)
 scene=pyrender.Scene()
 scene.add(camera,pose=Twc)
 scene.add(mesh,pose=np.eye(4))
@@ -44,14 +44,16 @@ depth = depth[:,:]
 
 print(depth.shape)
 
-cv2.imwrite('out.png', color)
-
+cv2.imwrite('out_1.png', color)
+img = Image.open("RGB_images_equatoriale/0-N_.png")
 # Overlap the two images for comparision
 fig = plt.figure()
-img = Image.open("DATASET_5/5-U_.png")
-img1 = Image.open("DATASET_5/5-N_.png")
-#plt.imshow(img, alpha=0.6, cmap=plt.cm.gray)
+
+#img1 = Image.open("DATASET_5/5-N_.png")
+plt.imshow(img, alpha=0.6, cmap=plt.cm.gray)
+plt.show()
 #plt.imshow(img1, alpha=0.4, cmap=plt.cm.gray)
-plt.imshow(depth, alpha=0.3, cmap=plt.cm.gray_r)
+fig = plt.figure()
+plt.imshow(depth, alpha=0.5, cmap=plt.cm.gray)
 #plt.gca().invert_xaxis()
 plt.show()
